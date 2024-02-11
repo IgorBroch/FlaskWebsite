@@ -41,13 +41,11 @@ def login():
             else:
                 return redirect(url_for('home'))
         else:
-            flash(f"Falha no Login. E-mail ou Senha Incorretos", "alert-danger")
+            flash(f"Invalid username or password. Please double-check your credentials and try again.", "alert-danger")
 
     if form_criar_conta.validate_on_submit() and 'botao_submite' in request.form:
-        senha_crypt = bcrypt.generate_password_hash(
-            form_criar_conta.password.data).decode('utf-8')
-        usuario = Usuario(username=form_criar_conta.username.data,
-                          email=form_criar_conta.email.data, password=senha_crypt)
+        senha_crypt = bcrypt.generate_password_hash(form_criar_conta.password.data).decode('utf-8')
+        usuario = Usuario(username=form_criar_conta.username.data,email=form_criar_conta.email.data, password=senha_crypt)
         database.session.add(usuario)
         database.session.commit()
         flash(f'Account created with success', 'alert-success')
@@ -59,15 +57,14 @@ def login():
 @login_required
 def sair():
     logout_user()
-    flash(f'Logout fieto com sucesso', 'alert-success')
+    flash(f'You have been successfully logged out.', 'alert-success')
     return redirect(url_for('home'))
 
 
 @app.route('/perfil')
 @login_required
 def perfil():
-    profile_photo = url_for(
-        "static", filename=f"profile_photos/{current_user.foto_perfil}")
+    profile_photo = url_for("static", filename=f"profile_photos/{current_user.foto_perfil}")
     return render_template('perfil.html', profile_photo=profile_photo)
 
 
@@ -76,8 +73,7 @@ def perfil():
 def criar_post():
     form = FormCriarPost()
     if form.validate_on_submit():
-        post = Post(titulo=form.titulo.data,
-                    corpo=form.corpo.data, autor=current_user)
+        post = Post(titulo=form.titulo.data,corpo=form.corpo.data, autor=current_user)
         database.session.add(post)
         database.session.commit()
         flash('Post created with success', 'alert-success')
@@ -124,8 +120,7 @@ def edit_profile():
     elif request.method == 'GET':
         form.email.data = current_user.email
         form.username.data = current_user.username
-    profile_photo = url_for(
-        "static", filename=f"profile_photos/{current_user.foto_perfil}")
+    profile_photo = url_for("static", filename=f"profile_photos/{current_user.foto_perfil}")
     return render_template('editprofile.html', profile_photo=profile_photo, form=form)
 
 
