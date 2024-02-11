@@ -18,7 +18,7 @@
         <span>{{ current_user.email }}</span>
 
         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-          {% if 'Não informado' in current_user.cursos %}
+          {% if 'Not informed' in current_user.cursos %}
           <div class="d-flex flex-column">
             <span class="articles">Courses</span>
             <span class="number1">0</span>
@@ -66,7 +66,7 @@
 
 <div class="row justify-content-center">
   <div class="col col-4" style="text-align: center">
-    <strong>Course</strong><br>
+    <strong>Corses</strong><br>
     {% for curso in current_user.cursos.split(';') %}
     <button type="button" class="btn btn-success mt-2" disabled>{{curso}}</button>
     {% endfor %}
