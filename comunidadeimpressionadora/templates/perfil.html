@@ -66,7 +66,7 @@
 
 <div class="row justify-content-center">
   <div class="col col-4" style="text-align: center">
-    <strong>Corses</strong><br>
+    <strong>Courses</strong><br>
     {% for curso in current_user.cursos.split(';') %}
     <button type="button" class="btn btn-success mt-2" disabled>{{curso}}</button>
     {% endfor %}
