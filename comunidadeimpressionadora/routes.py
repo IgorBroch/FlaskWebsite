@@ -45,7 +45,7 @@ def login():
 
     if form_criar_conta.validate_on_submit() and 'botao_submite' in request.form:
         senha_crypt = bcrypt.generate_password_hash(
-            form_criar_conta.password.data)
+            form_criar_conta.password.data).decode('utf-8')
         usuario = Usuario(username=form_criar_conta.username.data,
                           email=form_criar_conta.email.data, password=senha_crypt)
         database.session.add(usuario)
@@ -142,7 +142,7 @@ def exibir_post(post_id):
             post.titulo = form.titulo.data
             post.corpo = form.corpo.data
             database.session.commit()
-            flash('Post updated with success','alert-success')
+            flash('Post updated with success', 'alert-success')
             return redirect(url_for('home'))
     else:
         form = None
