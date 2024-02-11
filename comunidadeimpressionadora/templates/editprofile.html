@@ -1,0 +1,71 @@
+{% extends 'perfil.html' %}
+
+
+{% block form_edit_profile %}
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col">
+      <form method="POST" action="" class="border p-4 mt-2" enctype="multipart/form-data">
+        {{form.csrf_token}}
+        <legend>Edit Profile</legend>
+        <fieldset>
+
+          <div class="form-group">
+            {{form.username.label(class="form-control-label")}}
+            {% if form.username.errors%}
+            {{form.username(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+              {% for erro in form.username.errors%}
+              {{erro}}
+              {% endfor%}
+            </div>
+            {% else %}
+            {{form.username(class="form-control")}}
+            {% endif %}
+
+
+
+            <div class="form-group">
+              {{form.email.label(class="form-control-label")}}
+              {% if form.email.errors%}
+              {{form.email(class="form-control is-invalid")}}
+              <div class="invalid-feedback">
+                {% for erro in form.email.errors%}
+                {{erro}}
+                {% endfor%}
+              </div>
+              {% else %}
+              {{form.email(class="form-control")}}
+              {% endif %}
+            </div>
+
+            <div class="form-group"><br>
+              {{ form.user_photo.label }}<br>
+              {{ form.user_photo(class="form-control-file") }}
+              {% if form.user_photo.errors %}
+              {% for erro in form.user_photo.errors %}
+              <span class="text-danger"> {{ erro }} </span><br>
+              {% endfor %}
+              {% endif %}
+
+            </div>
+            <hr>
+            <p>Courses</p>
+            {% for campo in form %}
+            {% if 'curso_' in campo.name %}
+            <div class="form-group">
+              {{ campo(class="form-check-input") }}
+              {{ campo.label(class="form-check-label") }}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </fieldset>
+        {{form.botton_edit_profile(class="btn btn-primary mt-2")}}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
