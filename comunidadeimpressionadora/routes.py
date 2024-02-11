@@ -151,7 +151,7 @@ def excluir_post(post_id):
     if current_user == post.autor:
         database.session.delete(post)
         database.session.commit()
-        flash('Post deleted with success' 'alert-danger')
+        flash('Post deleted with success','alert-danger')
         return redirect(url_for('home'))
     else:
         abort(403)
