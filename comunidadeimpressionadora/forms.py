@@ -33,7 +33,7 @@ class FormEditProfile(FlaskForm):
     username = StringField('User name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     user_photo = FileField("Update profile photo", validators=[
-                           FileAllowed(['jpg', 'png'])])
+                           FileAllowed(['jpg', 'png', 'jpeg'])])
 
     curso_excel = BooleanField('Excel')
     curso_vba = BooleanField('VBA')
